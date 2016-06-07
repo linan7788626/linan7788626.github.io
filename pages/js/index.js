@@ -164,4 +164,5 @@ function updatecanvas(canvas, px, py) {
 
 var img = new Image();
 img.crossOrigin="anonymous";
-img.src = "spacehd2.jpg";
+//img.src = "spacehd2.jpg";
+img.src = "hudf_1024_576.jpg";
