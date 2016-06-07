@@ -31,11 +31,39 @@ window.onload = function() {
   }, false);
 
 };
+var deflection_point = function(x0, y0, re, x, y) {
 
-var smootherstep = function(t) {
-  //return 1/(Math.exp(-5*t+Math.E)) - Math.exp(-Math.E);
-  return 1 / (Math.exp(-6 * t + 3)) - Math.exp(-3);
+	var x1 = x - x0;
+	var y1 = y - y0;
+	var d = Math.sqrt(x1 * x1 + y1 * y1);
+
+	var ax = x1/d*re*re/d;
+	var ay = y1/d*re*re/d;
+
+    return [ax, ay];
 };
+
+var deflection_nie = function(x0, y0, theta, ql, re, rc, x, y) {
+	var tr = Math.PI * (theta / 180);
+
+	var sx = x - x0;
+	var sy = y - y0;
+
+	var cs = Math.cos(tr);
+	var sn = Math.sin(tr);
+
+	var sx_r = sx * cs + sy * sn;
+	var sy_r = -sx * sn + sy * cs;
+
+	var psi = Math.sqrt(ql*ql * (rc*rc + sx_r*sx_r) + sy_r*sy_r);
+	var dx_tmp = (re*Math.sqrt(ql)/Math.sqrt(1.0-ql*ql))*Math.atan(Math.sqrt(1.0-ql*ql)*sx_r/(psi+rc));
+	var dy_tmp = (re*Math.sqrt(ql)/Math.sqrt(1.0-ql*ql))*Math.atanh(Math.sqrt(1.0-ql*ql)*sy_r/(psi+rc*ql*ql));
+	var dx = dx_tmp * cs - dy_tmp * sn;
+	var dy = dx_tmp * sn + dy_tmp * cs;
+
+    return [dx, dy];
+};
+
 
 function getMousePos(canvas, evt) {
   var rect = canvas.getBoundingClientRect();
@@ -48,8 +76,8 @@ function getMousePos(canvas, evt) {
 function updatecanvas(canvas, px, py) {
   var context = canvas.getContext('2d');
 
-  re = 50;
-  r = 100;
+  re = 80;
+  r = 150;
   xmin = oldx - r;
   xmax = oldx + r;
   if (xmin < 0) {
@@ -100,35 +128,24 @@ function updatecanvas(canvas, px, py) {
   }
 
   var tol = -15;
+  var eq = 0.9;
   var maxSize = w * (h - 1) + w - 1;
   index = 0;
 
   for (y = ymin; y < ymax; y++) {
 	index = (xmin + y * w) << 2;
     for (x = xmin; x < xmax; x++) {
-      x1 = x - px;
-      y1 = y - py;
-      d = Math.sqrt(x1 * x1 + y1 * y1);
+	  x1 = x - px;
+	  y1 = y - py;
+	  d = Math.sqrt(x1 * x1 + y1 * y1);
       if (d <= r) {
-        sc = 1 - smootherstep((r - d) / r);
 
-		ax = x1/d*re*re/d;
-		ay = y1/d*re*re/d;
-        xx = Math.round(x - ax);
-        yy = Math.round(y - ay);
+		alphas = deflection_nie(px, py, 45, 0.5, re, 0.0, x, y);
+		//alphas = deflection_point(px, py, re, x, y);
+		xx = Math.round(x - alphas[0]);
+		yy = Math.round(y - alphas[1]);
 
-        //Antialiasing
-        if (sc < tol * 0.9 && sc > tol * 1.1)
-          sc = 0.9;
-        else if (sc < tol)
-          sc = 0.1;
-        else
-          sc = 1;
-        //end of lens math
         index2 = ((xx + yy * w) % maxSize) << 2;
-        //dstdata[index++] = sc * srcdata[index2 + 0];
-        //dstdata[index++] = sc * srcdata[index2 + 1];
-        //dstdata[index++] = sc * srcdata[index2 + 2];
         dstdata[index++] = srcdata[index2 + 0];
         dstdata[index++] = srcdata[index2 + 1];
         dstdata[index++] = srcdata[index2 + 2];
@@ -147,7 +164,4 @@ function updatecanvas(canvas, px, py) {
 
 var img = new Image();
 img.crossOrigin="anonymous";
-//img.src = "spacehd2.jpg";
-img.src = "hudf_1024_576.jpg";
-
-
+img.src = "spacehd2.jpg";
