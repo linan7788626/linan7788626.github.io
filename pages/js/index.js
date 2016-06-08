@@ -28,10 +28,16 @@ window.onload = function() {
   }, false);
 
   document.addEventListener('mousedown', function(event) {
+	  if(event.button == 0) {
         lastDownTarget = event.target;
 		var c = document.getElementById("dst");
 		window.open(c.toDataURL('image/png'));
+	  }
     }, false);
+document.getElementById('btn').onclick = function() {
+  alert('click!')
+}
+
 
 	//document.addEventListener('keydown', function(e) {
 		//if(e.keyCode === 32 && e.keyCode === 84) {
