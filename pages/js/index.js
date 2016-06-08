@@ -34,10 +34,6 @@ window.onload = function() {
 		window.open(c.toDataURL('image/png'));
 	  }
     }, false);
-document.getElementById('btn').onclick = function() {
-  alert('click!')
-}
-
 
 	//document.addEventListener('keydown', function(e) {
 		//if(e.keyCode === 32 && e.keyCode === 84) {
