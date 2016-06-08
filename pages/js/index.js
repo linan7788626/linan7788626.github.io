@@ -6,9 +6,6 @@ var imageDataDst, imageDataSrc;
 w = 1024;
 h = 512;
 
-var lerp = function(a, b, t) {
-  return (b - a) * (1 - Math.exp(-t)) + a;
-}
 
 window.onload = function() {
   w = img.width;
@@ -30,6 +27,16 @@ window.onload = function() {
     updatecanvas(canvas, mousePos.x, mousePos.y);
   }, false);
 
+  document.addEventListener('mousedown', function(event) {
+        lastDownTarget = event.target;
+		var c = document.getElementById("dst");
+		window.open(c.toDataURL('image/png'));
+    }, false);
+
+	//document.addEventListener('keydown', function(e) {
+		//if(e.keyCode === 32 && e.keyCode === 84) {
+        //}
+	//}, false);
 };
 var deflection_point = function(x0, y0, re, x, y) {
 
@@ -162,7 +169,7 @@ function updatecanvas(canvas, px, py) {
   oldy = py;
 }
 
+
 var img = new Image();
 img.crossOrigin="anonymous";
-//img.src = "spacehd2.jpg";
 img.src = "hudf_1024_576.jpg";
