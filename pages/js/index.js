@@ -27,7 +27,7 @@ window.onload = function() {
     updatecanvas(canvas, mousePos.x, mousePos.y);
   }, false);
 
-  document.addEventListener('mousedown', function(event) {
+  canvas.addEventListener('mousedown', function(event) {
 	  if(event.button == 0) {
         lastDownTarget = event.target;
 		var c = document.getElementById("dst");
