@@ -2,44 +2,63 @@ var oldx = 0;
 var oldy = 0;
 
 var imageDataDst, imageDataSrc;
-
-w = 1024;
-h = 512;
-
+var img = new Image();
+img.crossOrigin="anonymous";
+img.src = "https://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/pages/hudf_1024_576.jpg";
 
 window.onload = function() {
-  w = img.width;
-  h = img.height;
 
-  canvas = document.querySelector("canvas");
-  canvas.width = w;
-  canvas.height = h;
+	if(img.src === "https://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/pages/hudf_1024_576.jpg") {
 
-  dst = canvas.getContext("2d");
+		canvas = document.querySelector("canvas");
+		dst = canvas.getContext("2d");
 
-  dst.drawImage(img, 0, 0, w, h);
-  i = 0;
-  imageDataSrc = dst.getImageData(0, 0, w, h);
-  imageDataDst = dst.getImageData(0, 0, w, h);
+		document.getElementById("fileUpload").addEventListener("change", function() {
+			var FR = new FileReader();
+			FR.onload = function(e) {
+				img.onload = function() {
+					w = img.width;
+					h = img.height;
+					canvas.width = w;
+					canvas.height = h;
+					dst.drawImage(img, 0, 0);
 
-  canvas.addEventListener('mousemove', function(evt) {
-    var mousePos = getMousePos(canvas, evt);
-    updatecanvas(canvas, mousePos.x, mousePos.y);
-  }, false);
+					imageDataSrc = dst.getImageData(0, 0, w, h);
+					imageDataDst = dst.getImageData(0, 0, w, h);
+				};
+				img.src = e.target.result;
+			};
+			FR.readAsDataURL(this.files[0]);
+		}, false);
+	}
 
-  canvas.addEventListener('mousedown', function(event) {
-	  if(event.button == 0) {
-        lastDownTarget = event.target;
+	canvas = document.querySelector("canvas");
+	dst = canvas.getContext("2d");
+
+	w = img.width;
+  	h = img.height;
+
+  	canvas.width = w;
+  	canvas.height = h;
+
+	dst.drawImage(img, 0, 0, w, h);
+
+	imageDataSrc = dst.getImageData(0, 0, w, h);
+	imageDataDst = dst.getImageData(0, 0, w, h);
+
+	canvas.addEventListener('mousemove', function(evt) {
+		var mousePos = getMousePos(canvas, evt);
+		updatecanvas(canvas, mousePos.x, mousePos.y);
+	}, false);
+
+	canvas.addEventListener('mousedown', function(event) {
+		lastDownTarget = event.target;
+		//downloadCanvas(this, 'dst', 'test.png');
 		var c = document.getElementById("dst");
 		window.open(c.toDataURL('image/png'));
-	  }
-    }, false);
-
-	//document.addEventListener('keydown', function(e) {
-		//if(e.keyCode === 32 && e.keyCode === 84) {
-        //}
-	//}, false);
+	}, false);
 };
+
 var deflection_point = function(x0, y0, re, x, y) {
 
 	var x1 = x - x0;
@@ -170,8 +189,3 @@ function updatecanvas(canvas, px, py) {
   oldx = px;
   oldy = py;
 }
-
-
-var img = new Image();
-img.crossOrigin="anonymous";
-img.src = "hudf_1024_576.jpg";

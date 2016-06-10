@@ -18,3 +18,39 @@ span, a{
   padding: 5px 10px;
 }
 
+#download {
+    float:left;
+    cursor:pointer;
+    color:#ccc;
+    padding:3px;
+}
+#download:hover {
+    color:#fff;
+}
+
+.Uploadbtn {
+  position: relative;
+  overflow: hidden;
+  padding:10px 20px;
+  text-transform: uppercase;
+  color:#fff;
+  background: #222222;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  width:1080px;
+  text-align:center;
+  cursor: pointer;
+}
+.Uploadbtn .input-upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  height:100%;
+  width:100%;
+}
