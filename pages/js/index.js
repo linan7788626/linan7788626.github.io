@@ -1,5 +1,6 @@
 var oldx = 0;
 var oldy = 0;
+var maxWidth = 1024;
 
 var imageDataDst, imageDataSrc;
 var img = new Image();
@@ -17,11 +18,19 @@ window.onload = function() {
 			var FR = new FileReader();
 			FR.onload = function(e) {
 				img.onload = function() {
-					w = img.width;
-					h = img.height;
+
+					w0 = img.width;
+					h0 = img.height;
+
+					//ratio = Math.min(maxWidth / w0, maxHeight / h0);
+					ratio = maxWidth / w0;
+
+					w = w0*ratio;
+					h = h0*ratio;
+
 					canvas.width = w;
 					canvas.height = h;
-					dst.drawImage(img, 0, 0);
+					dst.drawImage(img, 0, 0, w, h);
 
 					imageDataSrc = dst.getImageData(0, 0, w, h);
 					imageDataDst = dst.getImageData(0, 0, w, h);
@@ -35,8 +44,13 @@ window.onload = function() {
 	canvas = document.querySelector("canvas");
 	dst = canvas.getContext("2d");
 
-	w = img.width;
-  	h = img.height;
+	w0 = img.width;
+	h0 = img.height;
+
+	ratio = maxWidth / w0;
+
+	w = w0*ratio;
+	h = h0*ratio;
 
   	canvas.width = w;
   	canvas.height = h;
@@ -53,7 +67,6 @@ window.onload = function() {
 
 	canvas.addEventListener('mousedown', function(event) {
 		lastDownTarget = event.target;
-		//downloadCanvas(this, 'dst', 'test.png');
 		var c = document.getElementById("dst");
 		window.open(c.toDataURL('image/png'));
 	}, false);
