@@ -60,17 +60,30 @@ window.onload = function() {
 	imageDataSrc = dst.getImageData(0, 0, w, h);
 	imageDataDst = dst.getImageData(0, 0, w, h);
 
-	canvas.addEventListener('mousemove', function(evt) {
-		var mousePos = getMousePos(canvas, evt);
-		updatecanvas(canvas, mousePos.x, mousePos.y);
-	}, false);
+	//canvas.addEventListener('mousemove', lensMove, false);
 
-	canvas.addEventListener('mousedown', function(event) {
-		lastDownTarget = event.target;
-		var c = document.getElementById("dst");
-		window.open(c.toDataURL('image/png'));
-	}, false);
+	//canvas.addEventListener('mousedown', function(event) {
+		//lastDownTarget = event.target;
+		//var c = document.getElementById("dst");
+		//window.open(c.toDataURL('image/png'));
+	//}, false);
+    canvas.addEventListener('mousedown', mouseDown, false);
+    window.addEventListener('mouseup', mouseUp, false);
 };
+
+function mouseUp()
+{
+    window.removeEventListener('mousemove', lensMove, true);
+}
+
+function mouseDown(evt){
+	window.addEventListener('mousemove', lensMove, true);
+}
+
+function lensMove(evt) {
+	var mousePos = getMousePos(canvas, evt);
+	updatecanvas(canvas, mousePos.x, mousePos.y);
+}
 
 var deflection_point = function(x0, y0, re, x, y) {
 
