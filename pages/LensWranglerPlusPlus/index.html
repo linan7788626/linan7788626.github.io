@@ -5,7 +5,8 @@
     
 	<script type="text/javascript" src="lib/underscore.js"></script>
 	<!--<script type="text/javascript" src="lib/lens.js"></script>-->
-	<script type="text/javascript" src="lib/elens.js"></script>
+	<!--<script type="text/javascript" src="lib/elens.js"></script>-->
+	<script type="text/javascript" src="lib/eelens.js"></script>
 	<script type="text/javascript" src="lib/canvas.js"></script>
 	<script type="text/javascript" src="lib/conrec.js"></script>
 	<script type="text/javascript" src="lenswrangler.js"></script>
@@ -34,7 +35,7 @@
     		});
     		var containerEl = document.getElementById("marking-container");
     		containerEl.appendChild(ms.el);
-    		
+
     		var img = new Image();
     		img.onload = function() {
 				var width = img.width;
@@ -86,17 +87,88 @@
 							x: coords.x,
 							y: coords.y
 						}
+						//return {
+						//	plane: "source",
+						//	size: getThetaE(d),
+						//	ell: getAratio(d),
+						//	ang: getAngle(d),
+						//	x: coords.x,
+						//	y: coords.y
+						//}
 					});
 					wrangler.updateModel(components);
 				}
 				var debouncedUpdateModel = _.debounce(updateModel, 200);
 				ms.on('marking-surface:change', debouncedUpdateModel);
 			}
-			//img.src = "http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg";
 			img.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
-			//https://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg
 
-			
+			// Source Models
+    		var ms_src = new MarkingSurface({
+				inputName: 'src-model',
+				tool: MarkingSurface.EllipseTool
+    		});
+    		var containerEl_src = document.getElementById("marking-container-src");
+    		containerEl_src.appendChild(ms_src.el);
+
+    		var img_src = new Image();
+    		img_src.onload = function() {
+				var width = img_src.width;
+				var height = img_src.height;
+    		  
+				ms_src.addShape('image', {
+					'xlink:href': img_src.src,
+					width: width,
+					height: height
+				});
+				ms_src.svg.attr({
+					width: 400,
+					height: 400
+				});
+				ms_src.rescale(0, 0, width, height);
+				var scaleX = 400 / img_src.width;
+				var scaleY = 400 / img_src.height;
+    		  
+				function getThetaE(d) {
+					var a = d.rx * wrangler.pixscale;
+					var b = d.ry * wrangler.pixscale;
+					return Math.sqrt(a * b);
+					//return Math.max(a , b);
+				}
+
+				function getAratio(d) {
+					var a = d.rx;
+					var b = d.ry;
+					return a / b;
+				}
+
+				function getAngle(d) {
+					return d.angle;
+				}
+    		  
+				function getCoords(d) {
+					return wrangler.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
+				}
+    		  
+				function updateModel() {
+					var data = JSON.parse(ms_src.getValue());
+					var components = data.map(function(d) {
+						var coords = getCoords(d);
+						return {
+							plane: "source",
+							size: getThetaE(d),
+							ell: getAratio(d),
+							ang: getAngle(d),
+							x: coords.x,
+							y: coords.y
+						}
+					});
+					wrangler.updateModel(components);
+				}
+				var debouncedUpdateModel = _.debounce(updateModel, 200);
+				ms_src.on('marking-surface:change', debouncedUpdateModel);
+			}
+			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
 		}
 	</script>
 
@@ -108,7 +180,7 @@
 		}
 
 		.container {
-			width: 1240px;
+			width: 840px;
 		}
   
 		h1, h2, h3, h4 { font-family: Arial,serif; }
@@ -120,7 +192,7 @@
 		.inline {
 		    position: relative;
 		    display: inline;
-		    margin-left: 10px;
+		    margin-left: 5px;
 		}
 		  
 		.inline-block {
@@ -134,9 +206,24 @@
 		    height: 40px;
 		}
 
-		#masscaption, #srccaption, #predcaption { 
-			width: 400px;
+		#masscaption,#srcincaption {
+			padding-top:100;
+			border: 1px solid #666666;
+			background-color: #666666;
+			width: 380px;
 			color: #ffffff;
+			padding-left: 20px;
+			margin-bottom: 50;
+		}
+		
+		#srccaption, #predcaption { 
+			padding-top:100;
+			border: 1px solid #666666;
+			background-color: #666666;
+			width: 380px;
+			color: #ffffff;
+			padding-left: 20px;
+			margin-bottom: 50;
 		}
 	  
 		.bar { 
@@ -144,12 +231,26 @@
 			height: 400px; 
 			float: left; 
 			margin: 5px;
+			margin-bottom: 5px;
 			border: 1px solid #666666;
 			/* background-image:
 			   url("http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg");
 			   */
 			background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
 			background-size: 400px 400px
+		}
+		.barTitle { 
+			font-family: Arial,serif;
+			padding-bottom:20px;
+			font-size:22px;
+			font-weight: bold;
+			width: 400px; 
+			height: 20px; 
+			float: left; 
+			margin: 5px;
+			margin-bottom: -5px;
+			border: 1px solid #666666;
+			background-color:#666666;
 		}
 
 		.greywords {
@@ -218,44 +319,74 @@
 			<a href="http://linan7788626.github.io"><button id="homebutton"
 					class="button" style="vertical-align:middle"><span>Go Back</span></button></a>
 			<h1>Lens Wrangler Plus Plus</h1>
-			<h4><a href="https://github.com/drphilmarshall/LensWrangler">Lens Wrangler</a> with Elliptical Lenses</h4>
+			<h4><a href="https://github.com/drphilmarshall/LensWrangler">Lens
+					Wrangler</a> with Elliptical Lenses and Sources</h4>
 		</header>
 	</div>
+	<!--<div class="container">-->
+		<!--<div class="captions">-->
+			<!--<div class="inline">-->
+				<!--<div id="masscaption" class="inline-block">-->
+					<!--<p>Mass Model</p>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="inline">-->
+				<!--<div id="srccaption" class="inline-block">-->
+					<!--<p>Source Model</p>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
 	<div class="container">
-	    <div class="captions">
-			<div class="inline">
-				<div id="masscaption" class="inline-block">
-					<p>Mass Model</p>
-				</div>
-			</div>
-      
-			<div class="inline">
-				<div id="srccaption" class="inline-block">
-					<p style="margin-left:0px;">Source Plane</p>
-				</div>
-			</div>
-    	  
-			<div class="inline">
-				<div id="predcaption" class="inline-block">
-					<p style="margin-left:0px;">Image Plane</p>
-				</div>
-			</div>
+		<div id="masscaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Mass Model</p>
+			
+		</div>
+		<div id="srccaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Source Model</p>
+		</div>
+	</div>
+	<div class="container">
+		<div id="marking-container" class="bar"></div>
+		<div id="marking-container-src" class="bar" style="color: #666666;"></div>
+	</div>
+	<!--<div class="container">-->
+		<!--<div class="captions">-->
+			<!--<div class="inline">-->
+				<!--<div id="srcincaption" class="inline-block">-->
+					<!--<p>Source Plane</p>-->
+				<!--</div>-->
+			<!--</div>-->
+          
+			<!--<div class="inline">-->
+				<!--<div id="predcaption" class="inline-block">-->
+					<!--<p>Image Plane</p>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<div class="container">
+		<div id="masscaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Source Plane</p>
+		</div>
+		<div id="srccaption" class="barTitle">
+			<p style="margin-top: 10px;margin-left: -8px;">Image Plane</p>
 		</div>
 	</div>
 
 	<div class="container">
-		<div id="marking-container" class="bar"></div>
 		<div id="lenswrangler-srcmodel" class="bar"></div>
 		<div id="lenswrangler-prediction" class="bar"></div>
 	</div>
 
 	<div class="container">
 		<div class="article">
-		Drag your mouse in the "Mass Model" block to draw ellipses, then move the
-		cursor in the "Source Plane" block. <br/> 
+		Drag your mouse in the blocks of "Mass Model" and "Source Model" to draw ellipses, <br/> 
+		then move the cursor in the "Source Plane" block. <br/> 
 		Can you discover anything interesting in
 		the "Image Plane" block?  <br/>
 		Can you reconstruct the Einstein Ring using your mouse? <br/>
+		Please use left click to activate freeze-model.<br/>
 		Have Fun!<br/>
 		</div>
 	</div>

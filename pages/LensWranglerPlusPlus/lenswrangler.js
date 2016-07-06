@@ -32,7 +32,7 @@
 		this.freezeSrcModel = false;
 		var _this = this;
 		this.srcmodelPaper.canvas.onclick = function() {
-		_this.freezeSrcModel = _this.freezeSrcModel ? false: true;
+			_this.freezeSrcModel = _this.freezeSrcModel ? false: true;
 		};
 
 		this.predictionPaper = new Canvas({'id': this.prediction});
@@ -57,13 +57,22 @@
 			src:" http://lenszoo.files.wordpress.com/2013/12/asw0009cjs-zoomed.jpg",
 			PSFwidth: 1.2,
 			source: {
-    		    plane: "source",
-    		    size:  0.7,
-    		    x: 100.0,
-    		    y:  100.0
-    		},
+				plane: "source",
+				size:  0.7,
+				x: 100.0,
+				y:  100.0,
+				ell: 0.7,
+				ang: 32
+			},
 			components: [
-				{plane: "source", size:  0.7, x: 100.0, y:  100.0}
+				{
+					plane: "source",
+					size:  0.7,
+					x: 100.0,
+					y: 100.0,
+					ell: 0.7,
+					ang: 32
+				}
 			]
 		});
 		this.init();
@@ -71,9 +80,43 @@
 
 	LensWrangler.prototype.updateModel = function(components) {
 		console.log('updateModel');
-    	var source = this.models[0].source;
-    	components.splice(0, 0, source);
-    	this.models[0].components = components;
+		if (components.length === 0) {
+			if (this.models[0].components.length === 0) {
+				var source = this.models[0].source;
+				components.splice(0, 0, source);
+				this.models[0].components = components;
+
+			} else {
+				var source = this.models[0].components[0];
+				components.splice(0, 0, source);
+				this.models[0].components = components;
+			}
+
+		} else {
+			if (components[0].plane === "source") {
+				if (this.models[0].components[0].plane === "source") {
+					this.models[0].components[0] = components[0];
+				} else {
+					this.models[0].components.splice(0, 0, components[0]);
+				}
+			} else {
+				if (this.models[0].components[0].plane === "source") {
+					var source = this.models[0].components[0];
+					components.splice(0, 0, source);
+					this.models[0].components = components;
+				} else {
+					var source = this.models[0].source;
+					components.splice(0, 0, source);
+					this.models[0].components = components;
+
+				}
+			}
+		}
+
+		console.log(this.models[0].components.lenght);
+		for(var i = 0 ; i < this.models[0].components.length ; i++) {
+			console.log(this.models[0].components[i]);
+		}
     	this.init();
 	}
 
