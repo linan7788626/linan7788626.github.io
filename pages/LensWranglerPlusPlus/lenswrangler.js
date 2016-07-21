@@ -112,13 +112,6 @@
 				}
 			}
 		}
-		//var str = JSON.stringify(this.models[0]);
-		//console.log(str);
-		//var obj = JSON.parse(string);
-		//console.log(this.models[0].components.lenght);
-		//for(var i = 0 ; i < this.models[0].components.length ; i++) {
-			//console.log(this.models[0].components[i]);
-		//}
     	this.init();
 	}
 
@@ -372,8 +365,6 @@
 					_this.e = {x:e.x, y:e.y};
 					if (!_this.freezeSrcModel) {
 						e.data.wrangler.update(e);
-						//var str = JSON.stringify(this.models[0]);
-						//console.log(str);
 					}
 				});
 			}
@@ -381,6 +372,16 @@
 		if(typeof fnCallback=="function") fnCallback(this);
 		this.trigger("init");
 		return this;
+	}
+
+	LensWrangler.prototype.showModels = function(){
+		var str = JSON.stringify(this.models[0].components, null, 4);
+		//alert(str);
+		var link = document.createElement('a');
+		link.download = 'lensModels.json';
+		var blob = new Blob([str], {type: 'text/plain'});
+		link.href = window.URL.createObjectURL(blob);
+		link.click();
 	}
 
 	LensWrangler.prototype.update = function(e){
@@ -395,6 +396,9 @@
 		// Update the source x,y positions
 		src.x = coords.x;
 		src.y = coords.y;
+		this.model.components[0].x = coords.x;
+		this.model.components[0].y = coords.y;
+		//console.log(this.model.components[0]);
 		// Add the source back
 		this.lens.add(src);
 		// Paste original image
@@ -462,6 +466,7 @@
     	}
 		return downsampledList;
 	}
+
 	// Loads the image file. You can provide a callback or have
 	LensWrangler.prototype.loadImage = function(source, fnCallback){
 
