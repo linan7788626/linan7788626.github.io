@@ -78,6 +78,12 @@
 		this.init();
 	}
 
+	LensWrangler.prototype.loadModel = function(components) {
+		console.log('loadModel');
+		this.models[0].components = components;
+    	this.init();
+	}
+
 	LensWrangler.prototype.updateModel = function(components) {
 		console.log('updateModel');
 		if (components.length === 0) {
@@ -87,9 +93,9 @@
 				this.models[0].components = components;
 
 			} else {
-				var source = this.models[0].components[0];
-				components.splice(0, 0, source);
-				this.models[0].components = components;
+				//var source = this.models[0].components[0];
+				//components.splice(0, 0, source);
+				//this.models[0].components = components;
 			}
 
 		} else {
@@ -375,7 +381,10 @@
 	}
 
 	LensWrangler.prototype.showModels = function(){
-		var str = JSON.stringify(this.models[0].components, null, 4);
+		var str = JSON.stringify(this.models[0].components,
+								 function(key, val) {
+									 return val.toFixed ? Number(val.toFixed(3)):val;
+								 }, 4);
 		//alert(str);
 		var link = document.createElement('a');
 		link.download = 'lensModels.json';
