@@ -130,7 +130,7 @@ function getMousePos(canvas, evt) {
 function updatecanvas(canvas, px, py) {
   var context = canvas.getContext('2d');
 
-  re = 80;
+  re = 100;
   r = 150;
   xmin = oldx - r;
   xmax = oldx + r;
@@ -196,8 +196,11 @@ function updatecanvas(canvas, px, py) {
 
 		alphas = deflection_nie(px, py, 45, 0.5, re, 0.0, x, y);
 		//alphas = deflection_point(px, py, re, x, y);
-		xx = Math.round(x - alphas[0]);
-		yy = Math.round(y - alphas[1]);
+
+		//wal = Math.atan(Math.pow((1-d/r), 0.2)/(Math.PI/2.0))
+		wal = Math.pow((1.0-d/r), 4.0)
+		xx = Math.round(x - alphas[0]*wal);
+		yy = Math.round(y - alphas[1]*wal);
 
         index2 = ((xx + yy * w) % maxSize) << 2;
         dstdata[index++] = srcdata[index2 + 0];
