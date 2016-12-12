@@ -152,17 +152,17 @@
 				var debouncedUpdateModel = _.debounce(updateModel, 200);
 				ms_src.on('marking-surface:change', debouncedUpdateModel);
 			}
-			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
+			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png";
 
 			document.getElementById('imageUpload').onchange = function(e) {
 				var imageFile = this.files[0];
 				var url = window.URL.createObjectURL(imageFile);
 				img.src = url;
-				img_src.src = url;
-				document.getElementById("hoopla-srcmodel").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-srcmodel").style.backgroundSize
-					= "100% 100%";
+			//	img_src.src = url;
+			//	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			//		= "100% 100%";
 				document.getElementById("hoopla-prediction").style.backgroundImage
 					= "url(" + url + ")";
 				document.getElementById("hoopla-prediction").style.backgroundSize
@@ -174,19 +174,19 @@
 				lets.showModels(img_src.src);
 			}
 
-			document.getElementById('buttonExecute').onclick = function passURL() {
-				url = document.getElementById('textbox1').value
-				img.src = url;
-				img_src.src = url;
-				document.getElementById("hoopla-srcmodel").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-srcmodel").style.backgroundSize
-					= "100% 100%";
-				document.getElementById("hoopla-prediction").style.backgroundImage
-					= "url(" + url + ")";
-				document.getElementById("hoopla-prediction").style.backgroundSize
-					= "100% 100%";
-			}
+			//document.getElementById('buttonExecute').onclick = function passURL() {
+			//	url = document.getElementById('textbox1').value
+			//	img.src = url;
+			//	img_src.src = url;
+			//	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			//		= "100% 100%";
+			//	document.getElementById("hoopla-prediction").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-prediction").style.backgroundSize
+			//		= "100% 100%";
+			//}
 
 			document.getElementById('modelUpload').onchange = function(e) {
 				var input = e.target;
@@ -256,6 +256,20 @@
 			margin-bottom: 50;
 		}
 
+		.barSrc {
+			width: 400px;
+			height: 400px;
+			max-width: 400px; 
+			max-height: 400px;
+			float: left;
+			margin: 5px;
+			margin-bottom: 5px;
+			border: 1px solid #666666;
+			background-size: 400px 400px;
+			background:url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png") no-repeat;
+			background-size:contain;
+		}
+
 		.bar {
 			width: 400px;
 			height: 400px;
@@ -267,7 +281,7 @@
 			border: 1px solid #666666;
 			/*background-image: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg");
 			background-size: 400px 400px;*/
-			background: url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg") no-repeat;
+			background:url("http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg") no-repeat;
 			background-size:contain;
 		}
 		.barTitle {
@@ -451,7 +465,7 @@
 	</div>
 	<div class="container">
 		<div id="marking-container" class="bar"></div>
-		<div id="marking-container-src" class="bar" style="color: #666666;"></div>
+		<div id="marking-container-src" class="barSrc" style="color: #ffffff;"></div>
 	</div>
 	<div class="container">
 		<div id="masscaption" class="barTitle">
