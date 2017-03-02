@@ -21,10 +21,10 @@
 
 	<div>
 		<header>
-			<h2>Instruction</h2>
+			<h1><br /></h1>
 		</header>
-		<h1>What is Hoopla?</h1>
-		<p>Hoopla is a simple javascript app for modeling images of strong
+		<h1><br />What is Hoopla?</h1>
+		<p class="fixed-width">Hoopla is a simple javascript app for modeling images of strong
 		gravitational lenses. It allows you to hand-craft a model lens out of
 		elliptically-symmetric mass distributions (representing massive
 		foreground galaxies) and elliptically symmetric light sources
@@ -34,8 +34,8 @@
 		shareable JSON file by just clicking the button below the main window
 		of Hoopla.</p>
 		<h1>An Example</h1>
-		<img src="../pics/example.png" alt="example" style="max-width: 80%;">
-		<p>In principle, when studying the effects of gravitational lensing, we
+		<img class="fixed-width" src="../pics/example.png" alt="example">
+		<p class="fixed-width">In principle, when studying the effects of gravitational lensing, we
 		have specific names for the different objects under observation. We
 		call the light-emitting object the source and the massive object the
 		lens. What we see through our telescopes is called an the image plane.
@@ -51,40 +51,41 @@
 		the lensed images, you can use left click on the block "Source Plane"
 		to activate freeze-model, then click the button "Submit your result" to
 		submit your models.</p>
-		<p>Briefly states, there are several steps for your to accomplish your model:</p>
+		<p class="fixed-width">Briefly states, here are the steps to play with the Hoopla:</p>
 		<ol>
 			<li class="li-in-p">Randomly draw an ellipse in the "Mass Model" block first.</li>
 			<li class="li-in-p">Randomly draw an ellipse in the "Source Model" block.</li>
 			<li class="li-in-p">Move the mouse in the source "Source Plane" block.</li>
 			<li class="li-in-p">Then some blue "circles" can be created in the "Images Plane" block.</li>
 		</ol>
-		<p>You could obtain some lensed images now, but if no matter how you
-		move the mouse, the similarity between the blue circles and lensed
-		images does not satisfy you, you may drag the handles (large white
-		points) on the ellipses to change the ellipticity, size, and
-		orientation of the source and lens, and drag the center of the ellipse
-		to relocate the lens and the source, then move the mouse again in the
-		"Source Plane" block to reproduce blue circles. Should you want to
-		restart, please just refresh the webpage. Repeating the steps above, I
-		believe you could obtain a reasonable model of gravitation lensing of
-		this image. If you obtain such a model, please do not forget to freeze
-		it (right click) and submit it (the button below the Hoopla
-		windows).</p>
-		<p>The figure above shows one example of the model I created. Once can
-		see the lens model and source model in the upper blocks, the relative
-		position of the source is shown in the lower left block, and the lensed
+		<p class="fixed-width">You could obtain some lensed images now, but,
+		probably if no matter how you move the mouse, the similarity between
+		the blue circles and lensed images does not satisfy you, you may drag
+		the handles (large white points) on the ellipses to change the
+		ellipticity, size, and orientation of the source and lens, and drag the
+		center of the ellipse to relocate the source and the lens, then move
+		the mouse again in the "Source Plane" block to reproduce blue circles.
+		Should you want to restart, please just refresh the webpage. Repeating
+		the steps above, I believe you could obtain a reasonable model of
+		gravitation lensing of this image. If you obtain such a model, please
+		do not forget to freeze it (right click on the "Source Model" block)
+		and submit it (click the button below the Hoopla windows).</p>
+
+		<p class="fixed-width">The figure above shows one example of the model
+		I created. One can see the lens model and source model in the upper
+		blocks, the relative position of the source is shown in the lower left
+		block, and the lensed
 		images are presented in the lower right block. To me, the similarity
 		between the blue circles and lensed images is acceptable. If you could
 		produce images like this, then congratulations, you are a gravitational
 		lensing modeler now. (^_^)</p>
 
-
-
 	</div>
 
 	<div class="container">
-		<a class="button" href="../index.html"
+		<button class="button"
 			style="vertical-align:middle;width:262px;position:relative;">
-		Goto Home</a>
+			<span><a style="color:white;text-decoration:none;" href="../index.html">Goto Homepage</a></span>
+		</button>
 	</div>
 </body>

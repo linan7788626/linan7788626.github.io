@@ -10,11 +10,16 @@ body {
 
 h1, h2, h3, h4 { font-family: Arial,serif; color: #b4d400}
 h1 { margin-bottom: 0.5em; color: #b4d400; }
-p { font-family: serif; font-size: 20pt;width:80%;text-align:justify}
+p { font-family: serif; font-size: 20pt;text-align:justify}
 h4 { color: #666666; }
-a { color: #46bcdf; }
+a { color: #46bcdf; text-decoration: none;}
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:hover {text-decoration: underline;}
+a:active {text-decoration: underline;}
 
-.li-in-p { font-family: Arial; font-size: 18pt;width:80%;text-align:justify;color:#faaf65;}
+.li-in-p { font-family: Arial; font-size: 18pt;text-align:justify;color:#faaf65;}
+.fixed-width {width:1000px;}
 .inline {
     position: relative;
     display: inline;
