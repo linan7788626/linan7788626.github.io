@@ -2439,6 +2439,40 @@
 			cursor: default;
 		}
 
+	.button_nl {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+		background-color: #0790ff;
+		border-radius: 2px;
+		border: solid 3px #0790ff;
+		color: #ffffff !important;
+		cursor: pointer;
+		display: inline-block;
+		padding: 4px 6px;
+		text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+		font-size:200%;
+	}
+
+	.button_nl:hover {
+		border-color: #0790ff;
+		background-color: #ffffff;
+		color: #0790ff !important;
+	}
+	
+	.button_nl:active {
+		background-color: #0790ff;
+		border-color: #49bf9d;
+		color: #ffffff !important;
+	}
+
 /* Work Item */
 
 	.work-item {
