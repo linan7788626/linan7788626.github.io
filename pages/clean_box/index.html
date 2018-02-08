@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+	<title>Hoopla</title>
+	<!--<link rel="stylesheet" href="./assets/css/tooltips.css" />-->
+	<link rel="stylesheet" href="./assets/css/nanlitxt.css" />
+	<!--<link rel="stylesheet" href="./assets/css/fixed-navigation-bar.css" />-->
+	<script type="text/javascript" src="lib/underscore.js"></script>
+	<script type="text/javascript" src="lib/eelens.js"></script>
+	<script type="text/javascript" src="lib/canvas.js"></script>
+	<script type="text/javascript" src="lib/conrec.js"></script>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/jquery.hoverIntent.js"></script>
+	<script type="text/javascript" src="hoopla.js"></script>
+	<script type="text/javascript">
+		xpixels = 400;
+		ypixels = 400;
+		window.onload = function(e){
+			// Create a hoopla object. The ID is that of the <div>
+    		var lets = new Hoopla({
+				id:'hoopla-srcmodel',
+				srcmodel: 'hoopla-srcmodel',
+				prediction: 'hoopla-prediction',
+				pixscale: 0.0225
+    		});
+
+    		// Using Brian C's Marking Surface library!!!
+    		var ms = new MarkingSurface({
+				inputName: 'mass-model',
+				tool: MarkingSurface.EllipseTool
+    		});
+    		var containerEl = document.getElementById("marking-container");
+    		containerEl.appendChild(ms.el);
+
+    		var img = new Image();
+    		img.onload = function() {
+				var width = img.width;
+				var height = img.height;
+
+				ms.addShape('image', {
+					'xlink:href': img.src,
+					width: width,
+					height: height
+				});
+				ms.svg.attr({
+					width: xpixels,
+					height: ypixels
+				});
+				ms.rescale(0, 0, width, height);
+				var scaleX = xpixels / img.width;
+				var scaleY = ypixels / img.height;
+
+				function getThetaE(d) {
+					var a = d.rx * lets.pixscale;
+					var b = d.ry * lets.pixscale;
+					return Math.sqrt(a * b);
+					//return Math.max(a , b);
+				}
+
+				function getAratio(d) {
+					var a = d.rx;
+					var b = d.ry;
+					return a / b;
+				}
+
+				function getAngle(d) {
+					return d.angle;
+				}
+
+				function getCoords(d) {
+					return lets.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
+				}
+
+				function updateModel() {
+					var data = JSON.parse(ms.getValue());
+					var components = data.map(function(d) {
+						var coords = getCoords(d);
+						return {
+							plane: "lens",
+							theta_e: getThetaE(d),
+							ell: getAratio(d),
+							ang: getAngle(d),
+							x: coords.x,
+							y: coords.y
+						}
+					});
+					lets.updateModel(components);
+				}
+				var debouncedUpdateModel = _.debounce(updateModel, 200);
+				ms.on('marking-surface:change', debouncedUpdateModel);
+			}
+			img.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/ering.jpg";
+
+			// Source Models
+    		var ms_src = new MarkingSurface({
+				inputName: 'src-model',
+				tool: MarkingSurface.EllipseTool
+    		});
+    		var containerEl_src = document.getElementById("marking-container-src");
+    		containerEl_src.appendChild(ms_src.el);
+
+    		var img_src = new Image();
+    		img_src.onload = function() {
+				var width = img_src.width;
+				var height = img_src.height;
+
+				ms_src.addShape('image', {
+					'xlink:href': img_src.src,
+					width: width,
+					height: height
+				});
+				ms_src.svg.attr({
+					width: xpixels,
+					height: ypixels
+				});
+				ms_src.rescale(0, 0, width, height);
+				var scaleX = xpixels / img_src.width;
+				var scaleY = ypixels / img_src.height;
+
+				function getSize(d) {
+					var a = d.rx * lets.pixscale;
+					var b = d.ry * lets.pixscale;
+					return Math.sqrt(a * b);
+					//return Math.max(a , b);
+				}
+
+				function getAratio(d) {
+					var a = d.rx;
+					var b = d.ry;
+					return a / b;
+				}
+
+				function getAngle(d) {
+					return d.angle;
+				}
+
+				function getCoords(d) {
+					return lets.lens.pix2ang({x: scaleX * d.x, y: scaleY * d.y});
+				}
+
+				function updateModel() {
+					var data = JSON.parse(ms_src.getValue());
+					var components = data.map(function(d) {
+						var coords = getCoords(d);
+						return {
+							plane: "source",
+							size: getSize(d),
+							ell: getAratio(d),
+							ang: getAngle(d),
+							x: coords.x,
+							y: coords.y
+						}
+					});
+					lets.updateModel(components);
+				}
+				var debouncedUpdateModel = _.debounce(updateModel, 200);
+				ms_src.on('marking-surface:change', debouncedUpdateModel);
+			}
+			img_src.src = "http://raw.githubusercontent.com/linan7788626/linan7788626.github.io/master/images/black.png";
+
+			//document.getElementById('imageUpload').onchange = function(e) {
+			//	var imageFile = this.files[0];
+			//	var url = window.URL.createObjectURL(imageFile);
+			//	img.src = url;
+			////	img_src.src = url;
+			////	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			////		= "url(" + url + ")";
+			////	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			////		= "100% 100%";
+			//	document.getElementById("hoopla-prediction").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-prediction").style.backgroundSize
+			//		= "100% 100%";
+			//}
+
+			document.getElementById("showModels").onclick = function fun() {
+				//lets.showModels(img_src.src.split('/')[img_src.src.split('/').length-1].split('.')[0]+'.JSON');
+				lets.showModels(img_src.src);
+			}
+
+			//document.getElementById('buttonExecute').onclick = function passURL() {
+			//	url = document.getElementById('textbox1').value
+			//	img.src = url;
+			//	img_src.src = url;
+			//	document.getElementById("hoopla-srcmodel").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-srcmodel").style.backgroundSize
+			//		= "100% 100%";
+			//	document.getElementById("hoopla-prediction").style.backgroundImage
+			//		= "url(" + url + ")";
+			//	document.getElementById("hoopla-prediction").style.backgroundSize
+			//		= "100% 100%";
+			//}
+
+			//document.getElementById('modelUpload').onchange = function(e) {
+			//	var input = e.target;
+
+			//	var reader = new FileReader();
+			//	reader.onload = function(){
+			//		var text = reader.result;
+			//		var data = JSON.parse(text);
+			//		lets.loadModel(data.components);
+			//	};
+			//	reader.readAsText(input.files[0]);
+			//};
+
+			function coolTips() {
+				$('.coolTip').each(function(){
+					var $this = $(this);
+					var id = $this.attr('id');
+					var $elem = $('.' + id);
+			
+					$elem.removeAttr('title');
+			
+					$('<div/>',{'class' : 'tooltipWrapper un' + id}).appendTo($elem);
+					var $tipWrapper = $('.tooltipWrapper.un' + id);
+			
+					$this.appendTo($tipWrapper);
+					$this.show();
+			
+					$elem.hoverIntent({
+						sensitivity: 2,
+						out: function () { $tipWrapper.hide();},
+									over: function () {
+
+							var lOffset = $elem.offset().left;
+							var rOffset = '';
+							var tOffset = $elem.offset().bottom + $this.outerHeight() ;
+							var bOffset = '';
+
+							if ( $elem.offset().top < 512 ) {
+								lOffset = $elem.offset().left;
+								rOffset = '';
+								tOffset = $elem.offset().bottom + $this.outerHeight() ;
+								bOffset = '';
+							} else {
+								lOffset = 0;
+								rOffset ='';
+								tOffset ='';
+								bOffset = 22 + $this.outerHeight() ;
+							}
+
+							console.log(bOffset);
+							console.log($this.outerHeight());
+							console.log($elem.offset().left);
+
+							//var lOffset = $elem.offset().left;
+							//var rOffset = '';
+							//if ( lOffset + $this.outerWidth() >= $(window).width() ) {
+							//	lOffset = '';
+							//	rOffset = 0;
+							//}
+							//var tOffset = $elem.offset().top + $elem.outerHeight();
+							//var bOffset = '';
+							//if ( tOffset + $this.outerHeight() >= $(window).height() ) {
+							//	tOffset = '';
+							//	bOffset = 0;
+							//}
+
+							$tipWrapper
+								.css('width','1')
+								.css('height','1')
+								.css('top', tOffset )
+								.css('bottom', bOffset )
+								.css('left', lOffset )
+								.css('right', rOffset )
+								.show()
+								.animate({ height:$this.outerHeight(), width:$this.outerWidth() });
+						}
+					});
+				});
+			}
+			coolTips();
+		}
+	</script>
+
+<body>
+	<!--<nav class="fixed-nav-bar">-->
+		<!--<div>-->
+			<!--<ul>-->
+				<!--<li><a class="active" href="./index.html">Hoopla</a></li>-->
+				<!--<li><a href="./pages/introduction.html">Introduction</a></li>-->
+				<!--<li><a href="./pages/instruction.html">Instruction</a></li>-->
+				<!--<li><a href="./pages/citizenscience.html">Citizen Science</a></li> -->
+				<!--<li><a href="./pages/theteam.html">The Team</a></li>-->
+			<!--</ul>-->
+		<!--</div>-->
+	<!--</nav>-->
+
+	<!--<div>-->
+		<!--<header class="inner">-->
+			<!--<h1><br /></h1>-->
+		<!--</header>-->
+	<!--</div>-->
+
+	<!--<div class="container">-->
+		<!--<div id="masscaption" class="barTitle">-->
+			<!--<p style="margin-top: 10px;margin-left: -8px;">Mass Model</p>-->
+		<!--</div>-->
+		<!--<div id="srccaption" class="barTitle">-->
+			<!--<p style="margin-top: 10px;margin-left: -8px;">Source Model</p>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<!--<div class="container">-->
+		<!--<div id="marking-container" class="bar"></div>-->
+		<!--<div id="marking-container-src" class="barSrc" style="color: #ffffff;"></div>-->
+	<!--</div>-->
+
+	<!--<div class="container">-->
+		<!--<div id="masscaption_c" class="barTitle">-->
+			<!--<p style="margin-top: 10px;margin-left: -8px;">Source Plane</p>-->
+		<!--</div>-->
+		<!--<div id="srccaption_c" class="barTitle">-->
+			<!--<p style="margin-top: 10px;margin-left: -8px;">Image Plane</p>-->
+		<!--</div>-->
+	<!--</div>-->
+
+	<!--<div class="container">-->
+		<!--<div id="hoopla-srcmodel" class="bar"></div>-->
+		<!--<div id="hoopla-prediction" class="bar"></div>-->
+	<!--</div>-->
+
+	<div class="container_w">
+		<div id="marking-container" class="bar"></div>
+		<div id="hoopla-srcmodel" class="bar"></div>
+		<div id="hoopla-prediction" class="bar"></div>
+	</div>
+
+	<div class="container_w">
+		<button class="button saveModel" id="showModels"
+			style="vertical-align:middle;width:296px;position: relative;">
+			<span>Save Your Result</span>
+		</button>
+
+		<!--<div class="coolTip" id="saveModel">-->
+			<!--<div class="tm-heading">-->
+				<!--Save Your Result -->
+			<!--</div>-->
+			<!--<div class="tm-description">-->
+				<!--<p>Save the mass model to a JSON file.</p>-->
+				<!--<p>&nbsp;</p>-->
+			<!--</div>-->
+			<!--<div class="tm-links">-->
+				<!--<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A-->
+					<!--Mass Model</a> -->
+				<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<button class="Uploadbtn button readinModels" 
+			style="vertical-align:middle;width:296px;">
+			<span>Read in Mass Models
+				<input class="input-upload" type="file" id="modelUpload"/>
+			</span>
+		</button>
+
+		<!--<div class="coolTip" id="readinModels">-->
+			<!--<div class="tm-heading">-->
+				<!--Read in Mass Models -->
+			<!--</div>-->
+			<!--<div class="tm-description">-->
+				<!--<p>An example of a mass model is <a-->
+		   <!--href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">here</a>.-->
+	   <!--Before uploading a new model, please refresh the webpage. After uploading-->
+	   <!--a new lens model, please move your cursor on the SOURCE PLANE block to-->
+	   <!--check the new model."</p>-->
+				<!--<p>&nbsp;</p>-->
+			<!--</div>-->
+			<!--<div class="tm-links">-->
+				<!--<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A-->
+					<!--Mass Model</a> -->
+				<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<button class="Uploadbtn button loadinImages" style="vertical-align:middle;width:296px;">
+			<span>Upload Lensed Images
+				<input class="input-upload" type="file" id="imageUpload"/>
+			</span>
+		</button>
+
+		<!--<div class="coolTip" id="loadinImages">-->
+			<!--<div class="tm-heading">-->
+				<!--Load in New Images -->
+			<!--</div>-->
+		
+			<!--<div class="tm-description">-->
+				<!--<p>Square Images Only. PNG, JPG, and JPEG are preferable. Before-->
+				<!--uploading new images, please refresh the webpage.</p>-->
+				<!--<p>&nbsp;</p>-->
+			<!--</div>-->
+			<!--<div class="tm-links">-->
+				<!--<a href="https://raw.githubusercontent.com/linan7788626/Hoopla/master/models/screenshot.JSON">A Mass Model</a> -->
+				<!--<a href="https://pages.github.com/">GitHub Pages</a>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<button class="button saveModel" id="showModels"
+			style="vertical-align:middle;width:296px;position: relative;">
+			<span>Optimize Your Model</span>
+		</button>
+	</div>
+
+    <script type="text/javascript" src="lib/marking/marking-surface.js"></script>
+    <script type="text/javascript" src="lib/marking/tools/ellipse.js"></script>
+</body>
