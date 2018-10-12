@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Checklist for the LSST DESC Meeting (CMU 2018)</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="jquery.checkradios.min.css">
+
+  <style>
+    html {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+    }
+
+    a:any-link {
+      color: rgb(6, 155, 255);
+    }
+
+    #page {
+      max-width: 1000px;
+      margin: 16px auto;
+      padding: 0 12px 200px 12px;
+    }
+
+    pre {
+      display: inline;
+      white-space: normal;
+      size: 95%;
+      margin: 0 6px;
+    }
+
+    @supports (zoom:1) {
+      input[type=checkbox] {
+        zoom: 1;
+		}
+    }
+
+    @supports not (zoom:1) {
+      input[type=checkbox] {
+        transform: scale(1.6);
+        margin: 5px;
+      }
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 30px;
+      background-color: #EEE;
+      margin: 30px 0;
+      position: sticky;
+      top: -1px;
+	  border-radius:3px;
+    }
+
+    #progress {
+      width: 1%;
+      height: 100%;
+      float: left;
+      background-color: rgb(6, 155, 255);
+	  border-radius:3px;
+    }
+
+    .item {
+      margin: 20px 0;
+      line-height: 1.2;
+      font-size: 120%;
+      display: flex;
+    }
+
+    .box {
+      margin-right: 12px;
+      vertical-align: top;
+    }
+
+    .text {
+      vertical-align: top;
+      flex-grow: 1;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 72px;
+    }
+
+	.custom-style{
+		font-size:20px;
+		color:rgb(6, 155, 255);
+		border:3px solid rgb(125, 125, 125);
+		border-radius: 4px;
+
+        <!--color:#4F6367;-->
+    	<!---webkitbox-shadow:inset 0px 0.1em 0.1em rgba(0,0,0,0.3);-->
+    	<!---moz-box-shadow:inset 0px 0.1em 0.1em rgba(0,0,0,0.3);-->
+    	<!--box-shadow:inset 0px 0.1em 0.1em rgba(0,0,0,0.3);-->
+	}
+
+  </style>
+</head>
+
+<body>
+  <div id="page">
+    <h1>Checklist for the LSST DESC Sprint Week (Edinburgh 2018)</h1>
+    <p>Here’s a few useful things you can do to prepare yourself for the upcoming Sprint Week in Edinburgh!</p>
+
+    <div class="progress-container">
+      <div id="progress"></div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">Bookmark the
+        <a href="https://confluence.slac.stanford.edu/x/Pxr1DQ" title="link to Confluence">Sprint Week Confluence page</a>,
+        on both your laptop and phone. Make sure you remember your Confluence password.</div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">Add your name and departure time to the
+        <a href="https://confluence.slac.stanford.edu/display/LSSTDESC/Sprint+Week%3A+Oct+22-26+2018+-+Royal+Observatory+Edinburgh#SprintWeek:Oct22-262018-RoyalObservatoryEdinburgh-Participants"
+          title="link to Confluence">Participants table</a> on the Sprint Week page.</div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">
+        Add your hack/sprint ideas to the <a href="https://confluence.slac.stanford.edu/display/LSSTDESC/Sprint+Week%3A+Oct+22-26+2018+-+Royal+Observatory+Edinburgh#SprintWeek:Oct22-262018-RoyalObservatoryEdinburgh-ProposedSprintsandHacks"
+          title="link to Confluence">Sprints and Hacks table</a> on the Sprint Week page!
+        Remember, not all hacks and sprints have to be carried out, so be bold when adding ideas!
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">
+        Add breakout session requests/ideas to the <a href="https://confluence.slac.stanford.edu/display/LSSTDESC/Sprint+Week%3A+Oct+22-26+2018+-+Royal+Observatory+Edinburgh#SprintWeek:Oct22-262018-RoyalObservatoryEdinburgh-BreakoutSessions"
+          title="link to Confluence">Breakout Sessions table</a> on the Sprint Week page.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">Join the Slack channel
+        <a href="https://lsstc.slack.com/messages/C2M8FG5A6/" title="link to LSSTC Slack">#desc-hack-sprint</a> to hear
+        announcements and to chat with sprint participants (both in-person and virtual).</div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">You should have received an email from Joe Zuntz, with the subject line "Edinburgh Sprint Week
+        Details", in which you can find logistical details about the Sprint Week. Keep that email handy. If you have
+        any questions about logistics, you can contact Joe Zuntz.</div>
+    </div>
+
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">Make sure you have a NERSC account and remember your password (<em>nope, a SSH key is not
+          enough</em>)!
+        <a href="https://confluence.slac.stanford.edu/x/mgRTD" title="link to Confluence">Need to apply for one?</a>
+        <a href="https://nim.nersc.gov/forgotpass.php">Forget your password?</a>
+        Questions? Ask them in the
+        <a href="https://lsstc.slack.com/messages/C2U2K05JR/" title="link to LSSTC Slack">#desc-nersc</a> Slack
+        channel.
+        Also, make sure you are in the "lsst" group. If not, contact Richard Dubois or Debbie Bard to request to be
+        added to the "lsst" group.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">If you plan to use DC2 data products, make sure you have <a href="https://confluence.slac.stanford.edu/x/1_ubDQ"
+          title="link to Confluence">DESC jupyter kernels installed</a>.
+        You can also follow the instruction on this
+        <a href="https://confluence.slac.stanford.edu/x/Xgg4Dg" title="link to Confluence">step-by-step</a> guide to
+        familiarize yourself with DC2 data products. Also check out and bookmark the
+        <a href="https://confluence.slac.stanford.edu/x/oJgHDg" title="link to Confluence">DC2 Data Product Overview
+          page</a>.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">Remind yourself of our
+        <a href="http://lsstdesc.org/sites/default/files/LSST_DESC_Professional_Conduct.pdf" title="link to PDF">Code
+          of Conduct</a> and the
+        <a href="https://goo.gl/iqsePQ" title="link to Google Docs">Virtual Meeting Best Practices</a>. Note that Code
+        of Conduct applies to virtual participants too and many of the
+        Best Practices apply to in-person participants as well!
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">Want to be free from technical difficulties? Check out our
+        <a href="https://goo.gl/dBuaXq" title="link to Google Docs">Tech Cheat Sheet</a> and bookmark it!
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">If you'd like to carpool or to share accommodation with other participants, you can find links
+        to editable Google Sheets on the top blue banner of the <a href="https://confluence.slac.stanford.edu/x/Pxr1DQ"
+          title="link to Confluence">Sprint Week Confluence page</a>.
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="box">
+        <input type="checkbox" class="checkradios custom-style">
+      </div>
+      <div class="text">If you use social media professionally, please use the
+        <a href="https://twitter.com/hashtag/lsstdesc" title="link to Twitter">#lsstdesc</a> hashtag when reporting
+        highlights from the meeting!
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>This site uses cookies to keep track your checklist progress. The data are stored in your browser locally
+        only.</p>
+      <p>If you have questions or suggestions about this page, please
+        <a href="https://github.com/LSSTDESC/pre-meeting-checklist/issues" title="link to GitHub">open an issue</a> or
+        contact
+        <a href="https://yymao.github.io">Yao-Yuan Mao</a>.</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="jquery.checkradios.js"></script>
+
+  <script>
+	$(document).ready(function(){
+	
+	    $('.checkradios').checkradios();
+	
+	});
+
+    const cookie_key = "lsst_desc_pre_meeting_checklist_edinburgh2018";
+
+    const get_progress = function () {
+      return (1 + 99 / $("input").length * $("input:checked").length);
+    }
+
+    $("input").change(function () {
+      var target = $("div.text").eq($("input").index(this));
+      if (this.checked) target.addClass("done");
+      else target.removeClass("done");
+      $("#progress").animate({ width: get_progress() + "%" }, 500);
+      var record = $("input").map(function () { return this.checked ? 1 : 0; }).toArray().join("");
+      Cookies.set(cookie_key, record, { expires: 21, path: "/pre-meeting-checklist/" });
+    });
+
+    var read_cookie = function () {
+      var record = Cookies.get(cookie_key);
+      if (record != undefined) {
+        record.split('').forEach((c, i) => {
+          if (c == "1") {
+            $("input").eq(i).attr("checked", true);
+            $("div.text").eq(i).addClass("done");
+          }
+        });
+        $("#progress").css("width", get_progress() + "%");
+      }
+    }
+    read_cookie();
+  </script>
+
+</body>
+
+</html>
