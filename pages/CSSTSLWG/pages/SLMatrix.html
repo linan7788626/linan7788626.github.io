@@ -1,0 +1,724 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Strong Lensing Matrix</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../assets/css/tooltips.css" />
+	<link rel="stylesheet" href="../assets/css/nanlitxt.css" />
+	<link rel="stylesheet" href="../assets/css/fixed-navigation-bar.css" />
+	<link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>
+
+/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head>
+<body>
+	<nav class="fixed-nav-bar">
+		<div>
+			<ul class="menu-items">
+				<li><a href="../index.html">CSST-SLWG</a></li>
+				<li><a href="../pages/SLRoadMap.html">Science Road Map</a></li>
+				<li><a class="active" href="../pages/SLMatrix.html">Strong Lensing Matrix</a></li> 
+				<li><a href="../pages/theTeam.html">The Team</a></li>
+			</ul>
+		</div>
+	</nav>
+	<h1 id='bWeACApRIK0'>Strong lensing matrix</h1>
+
+科学路线图链接 
+<control data-remapped="true" id="bWeACA5lsCB"><a href="https://quip.com/xDG6Aumlkoza">强引力透镜科学路线图</a></control><br/>
+
+<div data-section-style='13'><table id='bWeACA0V6Kk' title='Sheet1' style='width: 48.1333em'><thead><tr><th class='empty' style='width: 2em'/><th id='bWeACAtz1HI' class='empty' style='width: 6em'>A<br/></th><th id='bWeACAAwMHM' class='empty' style='width: 6em'>B<br/></th><th id='bWeACAgLAwO' class='empty' style='width: 6em'>C<br/></th><th id='bWeACA0JKZw' class='empty' style='width: 6.13333em'>D<br/></th><th id='bWeACAhNmRD' class='empty' style='width: 6em'>E<br/></th><th id='bWeACAh2fhT' class='empty' style='width: 6em'>F<br/></th><th id='bWeACA5LPg7' class='empty' style='width: 6em'>G<br/></th><th id='bWeACAKCy6I' class='empty' style='width: 6em'>H<br/></th></tr></thead><tbody><tr id='bWeACAhphji'><td style='background-color:#f0f0f0'>1</td><td id='s:bWeACAhphji;bWeACAjPD3N' style=''>Science Goal
+
+<br/></td><td id='s:bWeACAhphji;bWeACA8YPGT' style=''>Probe 
+
+<br/></td><td id='s:bWeACAhphji;bWeACAmnv0B' style=''>Targets
+
+<br/></td><td id='s:bWeACAhphji;bWeACAgrTZ9' style=''>Measurement
+
+<br/></td><td id='s:bWeACAhphji;bWeACAiGpYR' style=''>CSST Impact/comparing with current and future survey
+
+<br/></td><td id='s:bWeACAhphji;bWeACAhOfoi' style=''>Complementary Instruments
+
+<br/></td><td id='s:bWeACAhphji;bWeACA4Mayc' style=''>Complications
+
+<br/></td><td id='s:bWeACAhphji;bWeACA8B7AS' style=''>ref/demo with simulation data/observation data
+
+<br/></td></tr><tr id='bWeACAt2jLd'><td style='background-color:#f0f0f0'>2</td><td id='s:bWeACAt2jLd;bWeACAjPD3N' style=''>Distinguish dark matter models:  WDM vs. CDM
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACA8YPGT' style=''>subhalo/halo mass function at low mass end
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACAmnv0B' style=''>Galactic Einstein ring/arc system (~100 high S/N)
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACAgrTZ9' style=''>Detecting the flux perturbation on the Einstein ring; require lens modelling with Pixelized source reconstruction
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACAiGpYR' style=''>Increasing the number of suitable lenses; High angular resolution imaging; accurate photoz for large sample of galactic lenses; 
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACAhOfoi' style=''>Ground base Laser AO imaging follow-up; spectroscopy follow-up 
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACA4Mayc' style=''>Distinguishing false detection; estimating sensitivity map 
+
+<br/></td><td id='s:bWeACAt2jLd;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACA9Gybr'><td style='background-color:#f0f0f0'>3</td><td id='s:bWeACA9Gybr;bWeACAjPD3N' style=''>
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACA8YPGT' style=''>subhalo powerspectrum
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACAmnv0B' style=''>Galactic Einstein ring/arc system 
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACAgrTZ9' style=''>Measuring the powerspectrum of residual flux after subtracting the macro model
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACAiGpYR' style=''>Increasing the number of suitable lenses; High angular resolution imaging; accurate photoz for large sample of galactic lenses; 
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACAhOfoi' style=''>
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACA4Mayc' style=''>linking power spectrum of residual to that of subhalo
+
+<br/></td><td id='s:bWeACA9Gybr;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACAjRyrM'><td style='background-color:#f0f0f0'>4</td><td id='s:bWeACAjRyrM;bWeACAjPD3N' style=''>Dark matter Self-interaction
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACA8YPGT' style=''>off-set between center of distribution of galaxies and dark matter mass center 
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACAmnv0B' style=''>Coliding clusters
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACAgrTZ9' style=''>Constructing dark matter mass map of cluster
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACAiGpYR' style=''>Hudreds of coliding clusters with high resolution imaging; accurate photo-z for source galaxies; weak lensing at large scales
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACAhOfoi' style=''>X-rays; MCI follow-up to 27 mag
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACA4Mayc' style=''>Accurate measurement of dark matter centre from limited multi-image systems
+
+<br/></td><td id='s:bWeACAjRyrM;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACARNAkF'><td style='background-color:#f0f0f0'>5</td><td id='s:bWeACARNAkF;bWeACAjPD3N' style=''>
+
+<br/></td><td id='s:bWeACARNAkF;bWeACA8YPGT' style=''>Core of dark matter at centre of clusters
+
+<br/></td><td id='s:bWeACARNAkF;bWeACAmnv0B' style=''>relaxed clusters
+
+<br/></td><td id='s:bWeACARNAkF;bWeACAgrTZ9' style=''>Constructing mass map of cluster at ~kpc  
+
+<br/></td><td id='s:bWeACARNAkF;bWeACAiGpYR' style=''>Increasing the number of clusters with strong lensing multi-images
+
+<br/></td><td id='s:bWeACARNAkF;bWeACAhOfoi' style=''>IFS measurement of velocity map of central galaxy; weak lensing at larger scale; X-rays
+
+<br/></td><td id='s:bWeACARNAkF;bWeACA4Mayc' style=''>AGN feedback effect; Dry merger effect; Accury of dynamical analysis
+
+<br/></td><td id='s:bWeACARNAkF;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACAtU403'><td style='background-color:#f0f0f0'>6</td><td id='s:bWeACAtU403;bWeACAjPD3N' style=''>Testing gravity
+
+<br/></td><td id='s:bWeACAtU403;bWeACA8YPGT' style=''>Compare dynamical mass with gravitational mass
+
+<br/></td><td id='s:bWeACAtU403;bWeACAmnv0B' style=''>Galactic scale Einstein rings/arcs; double Einstein ring systems
+
+<br/></td><td id='s:bWeACAtU403;bWeACAgrTZ9' style=''>Measuring the mass within Einstein radius using stellar kinematics and strong lensing
+
+<br/></td><td id='s:bWeACAtU403;bWeACAiGpYR' style=''>A large number of double Einstein ring system
+
+<br/></td><td id='s:bWeACAtU403;bWeACAhOfoi' style=''>Spectroscopy follow-up of the lens
+
+<br/></td><td id='s:bWeACAtU403;bWeACA4Mayc' style=''>lens mass model degenerate with total gravitational mass
+
+<br/></td><td id='s:bWeACAtU403;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACAavMrZ'><td style='background-color:#f0f0f0'>7</td><td id='s:bWeACAavMrZ;bWeACAjPD3N' style=''>Measuring the cosmological parameters 
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACA8YPGT' style=''>Compare dynamical mass with gravitational mass
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACAmnv0B' style=''>Galactic scale Einstein rings/arcs; double Einstein ring systems
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACAgrTZ9' style=''>Measuring the mass within Einstein radius using stellar kinematics and strong lensing
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACAiGpYR' style=''>A large number of double Einstein ring system
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACAhOfoi' style=''>Spectroscopy follow-up of the lens
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACA4Mayc' style=''>lens mass model degenerate with total gravitational mass
+
+<br/></td><td id='s:bWeACAavMrZ;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACAtsCDK'><td style='background-color:#f0f0f0'>8</td><td id='s:bWeACAtsCDK;bWeACAjPD3N' style=''>
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACA8YPGT' style=''>distributions of image angular separations and lens redshits
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACAmnv0B' style=''>Galaxy-scale strong lensing systems
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACAgrTZ9' style=''>High-resolution lens images, high-precision photo-z redshifts
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACAiGpYR' style=''>Multi-bands and high-resolution lens images
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACAhOfoi' style=''>Spectroscopy follow-up of the lens
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACA4Mayc' style=''>accurate positions of multiple images
+
+<br/></td><td id='s:bWeACAtsCDK;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACArvFF9'><td style='background-color:#f0f0f0'>9</td><td id='s:bWeACArvFF9;bWeACAjPD3N' style=''>
+
+<br/></td><td id='s:bWeACArvFF9;bWeACA8YPGT' style=''>Time delay between images of the time-varying sources
+
+<br/></td><td id='s:bWeACArvFF9;bWeACAmnv0B' style=''>Lensed supernova, kilonova, and <f style="color:#222222" textcolor="#222222">gravitational wave</f>
+
+<br/></td><td id='s:bWeACArvFF9;bWeACAgrTZ9' style=''>pointing at the same patch of sky for longer durations
+
+<br/></td><td id='s:bWeACArvFF9;bWeACAiGpYR' style=''>Large-sky-area, multi-bands, high-resolution imaging
+
+<br/></td><td id='s:bWeACArvFF9;bWeACAhOfoi' style=''>Spectroscopy follow-up, and imaging follow-up with small telescopes
+
+<br/></td><td id='s:bWeACArvFF9;bWeACA4Mayc' style=''>Searching lensed supernova, kilonova, and <f style="color:#222222" textcolor="#222222">gravitational wave</f> from the databases
+
+<br/></td><td id='s:bWeACArvFF9;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACAID9jm'><td style='background-color:#f0f0f0'>10</td><td id='s:bWeACAID9jm;bWeACAjPD3N' style=''>Evolution of Early type galaxies
+
+<br/></td><td id='s:bWeACAID9jm;bWeACA8YPGT' style=''>total mass-central slope relation; dark matter fraction evolution
+
+<br/></td><td id='s:bWeACAID9jm;bWeACAmnv0B' style=''>Early type lenses
+
+<br/></td><td id='s:bWeACAID9jm;bWeACAgrTZ9' style=''>Modelling the mass distribution within R_Ei
+
+<br/></td><td id='s:bWeACAID9jm;bWeACAiGpYR' style=''>Increasing the number of lenses at low mass end; Volume limited sample of early type lenses
+
+<br/></td><td id='s:bWeACAID9jm;bWeACAhOfoi' style=''>
+
+<br/></td><td id='s:bWeACAID9jm;bWeACA4Mayc' style=''>
+
+<br/></td><td id='s:bWeACAID9jm;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACANspZI'><td style='background-color:#f0f0f0'>11</td><td id='s:bWeACANspZI;bWeACAjPD3N' style=''>High redshift galaxy evolution
+
+<br/></td><td id='s:bWeACANspZI;bWeACA8YPGT' style=''>Measuring galaxy luminosity function at high redshift
+
+<br/></td><td id='s:bWeACANspZI;bWeACAmnv0B' style=''>cluster lenses
+
+<br/></td><td id='s:bWeACANspZI;bWeACAgrTZ9' style=''>constructing the magnification map of strong lensing clusters; measuring photo-z of background galaxies at the centre region of the cluster
+
+<br/></td><td id='s:bWeACANspZI;bWeACAiGpYR' style=''>Ultra-deep field observation of serveral lensing clusters
+
+<br/></td><td id='s:bWeACANspZI;bWeACAhOfoi' style=''>Need MCI follow-up
+
+<br/></td><td id='s:bWeACANspZI;bWeACA4Mayc' style=''>magnification map reconstruction
+
+<br/></td><td id='s:bWeACANspZI;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACA0vEy1'><td style='background-color:#f0f0f0'>12</td><td id='s:bWeACA0vEy1;bWeACAjPD3N' style=''>Strong lensing Cluster Cosmology
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACA8YPGT' style=''>Multiple-images of massive clusters
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACAmnv0B' style=''>Cluster lenses
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACAgrTZ9' style=''>Modelling the cluster mass distribution
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACAiGpYR' style=''>
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACAhOfoi' style=''>MCI deep fields, Spectroscopy follow-up
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACA4Mayc' style=''>Systematics: baryonic effects, photo-z measurement, substructures, mass model-cosmology degeneracy
+
+<br/></td><td id='s:bWeACA0vEy1;bWeACA8B7AS' style=''>
+
+<br/></td></tr><tr id='bWeACALINUv'><td style='background-color:#f0f0f0'>13</td><td id='s:bWeACALINUv;bWeACAjPD3N' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACA8YPGT' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACAmnv0B' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACAgrTZ9' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACAiGpYR' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACAhOfoi' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACA4Mayc' style=''>
+
+<br/></td><td id='s:bWeACALINUv;bWeACA8B7AS' style=''>
+
+<br/></td></tr></tbody></table></div><div data-section-style='13'><table id='bWeACA0Fnyv' title='Sheet2' style='width: 48em'><thead><tr><th class='empty' style='width: 2em'/><th id='bWeACAWxy3a' class='empty' style='width: 6em'>A<br/></th><th id='bWeACABw2FF' class='empty' style='width: 6em'>B<br/></th><th id='bWeACAeV5ZZ' class='empty' style='width: 6em'>C<br/></th><th id='bWeACAi3qhd' class='empty' style='width: 6em'>D<br/></th><th id='bWeACAe9DCr' class='empty' style='width: 6em'>E<br/></th><th id='bWeACAxHjCT' class='empty' style='width: 6em'>F<br/></th><th id='bWeACARTfJY' class='empty' style='width: 6em'>G<br/></th><th id='bWeACAVXyvk' class='empty' style='width: 6em'>H<br/></th></tr></thead><tbody><tr id='bWeACAQsAdZ'><td style='background-color:#f0f0f0'>1</td><td id='s:bWeACAQsAdZ;bWeACAI7xVj' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">科学目标（按重要性）</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACAqiXEe' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">探测方法</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACA5Ndxg' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">目标天体</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACAgbhz1' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">测量技术需求</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACAEYfhR' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">CSST优势</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACAwp70H' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">补充观测</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACAcWH8I' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">复杂性/待攻关</f></b>
+
+<br/></td><td id='s:bWeACAQsAdZ;bWeACAUjeVb' style='background-color:#4472c4;vertical-align: top;'><br><b><f style="color:#ffffff" textcolor="#ffffff">人员/状态</f></b>
+
+<br/></td></tr><tr id='bWeACA5VvZu'><td style='background-color:#f0f0f0'>2</td><td id='s:bWeACA5VvZu;bWeACAI7xVj' style='background-color:#cfd5ea;vertical-align: top;'><br>区分冷/温暗物质
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACAqiXEe' style='background-color:#cfd5ea;vertical-align: top;'><br>低质量暗晕质量函数.  Li et al. 2016,2018,  Shu et al. 2016
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACA5Ndxg' style='background-color:#cfd5ea;vertical-align: top;'><br>1000个高质量Einstein环
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACAgbhz1' style='background-color:#cfd5ea;vertical-align: top;'><br>像素级别的透镜重构，高精度测光红移
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACAEYfhR' style='background-color:#cfd5ea;vertical-align: top;'><br>比现有观测数据增加3个量级的透镜，高分辨率成像，高精度测光红移
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACAwp70H' style='background-color:#cfd5ea;vertical-align: top;'><br>地面AO改正的成像观测，地面光谱后遂观测
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACAcWH8I' style='background-color:#cfd5ea;vertical-align: top;'><br>开发像素级别的透镜重构pipeline  ，基于高精度数值模拟的理论模型，高精度测光红移
+
+<br/></td><td id='s:bWeACA5VvZu;bWeACAUjeVb' style='background-color:#cfd5ea;vertical-align: top;'><br>李然，曹潇月，王春香，舒轶平
+
+<br/></td></tr><tr id='bWeACAdKgB6'><td style='background-color:#f0f0f0'>3</td><td id='s:bWeACAdKgB6;bWeACAI7xVj' style=''>
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACAqiXEe' style='background-color:#e9ebf5;vertical-align: top;'><br>子暗晕功率谱
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACA5Ndxg' style='background-color:#e9ebf5;vertical-align: top;'><br>~10000 Einstein 环/arc
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACAgbhz1' style='background-color:#e9ebf5;vertical-align: top;'><br>像素级别透镜重构，残差功率谱测量
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACAEYfhR' style='background-color:#e9ebf5;vertical-align: top;'><br>比现有观测数据增加3个量级的透镜
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACAwp70H' style='background-color:#e9ebf5;vertical-align: top;'><br>N/A
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACAcWH8I' style='background-color:#e9ebf5;vertical-align: top;'><br>背景星系结构影响，基于高精度数值模拟的理论模型
+
+<br/></td><td id='s:bWeACAdKgB6;bWeACAUjeVb' style='background-color:#e9ebf5;vertical-align: top;'><br>何秋翰，李然<br>
+
+<br/></td></tr><tr id='bWeACA4tNq8'><td style='background-color:#f0f0f0'>4</td><td id='s:bWeACA4tNq8;bWeACAI7xVj' style='background-color:#cfd5ea;vertical-align: top;'><br>暗物质自相互作用
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACAqiXEe' style='background-color:#cfd5ea;vertical-align: top;'><br>碰撞星系团暗物质和星系分离距离
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACA5Ndxg' style='background-color:#cfd5ea;vertical-align: top;'><br>合并中的星系团
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACAgbhz1' style='background-color:#cfd5ea;vertical-align: top;'><br>星系团强引力透镜建模，<br>星系团成员确认
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACAEYfhR' style='background-color:#cfd5ea;vertical-align: top;'><br>大幅度增加现有碰撞星系团统计数目；超深场后遂观测
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACAwp70H' style='background-color:#cfd5ea;vertical-align: top;'><br>X-ray/ MCI to 27 mag/ MUSE IFU
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACAcWH8I' style='background-color:#cfd5ea;vertical-align: top;'><br>碰撞星系团精确建模；背景星系对确认；星系团中心复杂的物理过程
+
+<br/></td><td id='s:bWeACA4tNq8;bWeACAUjeVb' style='background-color:#cfd5ea;vertical-align: top;'><br>陕欢源，谢雨珊，李然，朱凯，王春香
+
+<br/></td></tr><tr id='bWeACA2uc5p'><td style='background-color:#f0f0f0'>5</td><td id='s:bWeACA2uc5p;bWeACAI7xVj' style='background-color:#e9ebf5;vertical-align: top;'><br>宇宙学参数测定/引力理论检验
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACAqiXEe' style='background-color:#e9ebf5;vertical-align: top;'><br>比较动力学质量和引力透镜质量
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACA5Ndxg' style='background-color:#e9ebf5;vertical-align: top;'><br>高质量早型星系的爱因斯坦环
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACAgbhz1' style='background-color:#e9ebf5;vertical-align: top;'><br>像素级别的透镜重构，高精度测光红移，动力学建模
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACAEYfhR' style='background-color:#e9ebf5;vertical-align: top;'><br>大量高精度透镜图像，减小统计误差
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACAwp70H' style='background-color:#e9ebf5;vertical-align: top;'><br>光谱follow-up
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACAcWH8I' style='background-color:#e9ebf5;vertical-align: top;'><br>动力学建模准确性，早型星系随红移演化
+
+<br/></td><td id='s:bWeACA2uc5p;bWeACAUjeVb' style='background-color:#e9ebf5;vertical-align: top;'><br>陈云，舒轶平，杜伟<br>李然
+
+<br/></td></tr><tr id='bWeACAVDR4r'><td style='background-color:#f0f0f0'>6</td><td id='s:bWeACAVDR4r;bWeACAI7xVj' style='background-color:#cfd5ea;vertical-align: top;'><br>高红移星系光度函数
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACAqiXEe' style='background-color:#cfd5ea;vertical-align: top;'><br>星系团作为放大镜
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACA5Ndxg' style='background-color:#cfd5ea;vertical-align: top;'><br>星系团中心
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACAgbhz1' style='background-color:#cfd5ea;vertical-align: top;'><br>高精度星系团透镜建模
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACAEYfhR' style='background-color:#cfd5ea;vertical-align: top;'><br>MCI超深场
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACAwp70H' style='background-color:#cfd5ea;vertical-align: top;'><br>地面10米级望远镜光谱follow-up
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACAcWH8I' style='background-color:#cfd5ea;vertical-align: top;'><br>星系团放大地图精确测量，Cosmic variance
+
+<br/></td><td id='s:bWeACAVDR4r;bWeACAUjeVb' style='background-color:#cfd5ea;vertical-align: top;'><br>李楠，陕欢源<br>李然，谢雨珊
+
+<br/></td></tr></tbody></table></div></body></html>
+
+	<div class="container">
+		<button class="button"
+			style="vertical-align:middle;width:262px;position:relative;">
+			<span><a style="color:white;text-decoration:none;" href="../index.html">Goto Homepage</a></span>
+		</button>
+	</div>
+</body>

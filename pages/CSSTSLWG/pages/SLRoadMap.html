@@ -1,0 +1,537 @@
+<!doctype html>
+<html><head><title>强引力透镜科学路线图</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../assets/css/tooltips.css" />
+		<link rel="stylesheet" href="../assets/css/nanlitxt.css" />
+		<link rel="stylesheet" href="../assets/css/fixed-navigation-bar.css" />
+		<link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: white;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+h3 {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.capitalize-h3 h3 {
+    text-transform: uppercase;
+}
+
+/* Body text */
+body,
+p,
+ul,
+ol,
+td {
+    font-family: "Crimson Text", serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote,
+q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a,
+q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code,
+pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web",
+        Courier, monospace;
+    background: #f2f2f2;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #bbb;
+    table-layout: fixed;
+    position: relative;
+}
+
+table th,
+table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #c7cbd1;
+    background: #f2f2f2;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #c7cbd1;
+    border-top: 1px solid #c7cbd1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+
+/* Apps */
+div[data-section-style="19"].placeholder {
+    margin: 0.8em auto;
+    padding: 4px 0;
+    display: block;
+    color: #3d87f5;
+    text-align: center;
+    border: 1px solid rgba(41, 182, 242, 0.2);
+    border-radius: 3px;
+    background: #e9f8fe;
+    font-family: Roboto, sans-serif;
+}
+
+div[data-section-style="19"].first-party-element {
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+div[data-section-style="19"].first-party-element.kanban {
+    background-image: url("https://quip-cdn.com/nK0hSyhsb4jrLIL2s5Ma-g");
+    height: 166px;
+}
+
+div[data-section-style="19"].first-party-element.calendar {
+    background-image: url("https://quip-cdn.com/OYujqLny03RILxcLIiyERg");
+    height: 244px;
+}
+
+div[data-section-style="19"].first-party-element.poll {
+    background-image: url("https://quip-cdn.com/fbIiFrcKGv__4NB7CBfxoA");
+    height: 116px;
+}
+
+div[data-section-style="19"].first-party-element.countdown {
+    background-image: url("https://quip-cdn.com/3bPhykD2dBei9sSjCWteTQ");
+    height: 96px;
+}
+
+div[data-section-style="19"].first-party-element.process_bar {
+    background-image: url("https://quip-cdn.com/ybQlHnHEIIBLog5rZmYs_w");
+    height: 36px;
+}
+
+div[data-section-style="19"].first-party-element.project_tracker {
+    background-image: url("https://quip-cdn.com/OFQU087b4Mxzz1ZaHwtjXA");
+    height: 164px;
+}
+
+div[data-section-style="19"] img {
+    margin: 0.5em;
+}
+
+div[data-section-style="19"] img.masked-image {
+    margin: 0;
+    transform-origin: top left;
+}
+
+div[data-section-style="19"] .image-mask {
+    position: relative;
+    overflow: hidden;
+}
+h3 {
+    text-transform: uppercase;
+}
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+</style></head>
+<body>
+	<nav class="fixed-nav-bar">
+		<div>
+			<ul class="menu-items">
+				<li><a href="../index.html">CSST-SLWG</a></li>
+				<li><a class="active" href="../pages/SLRoadMap.html">Science Road Map</a></li>
+				<li><a href="../pages/SLMatrix.html">Strong Lensing Matrix</a></li> 
+				<li><a href="../pages/theTeam.html">The Team</a></li>
+			</ul>
+		</div>
+	</nav>
+	<h1 id='FAWACAqe8Gj'>强引力透镜科学路线图</h1>
+
+ <br/>
+
+<h3 id='FAWACAnLbox'>强引力透镜科学目标：</h3>
+
+强引力透镜科学目标详见Science matrix <control data-remapped="true" id="FAWACAKWIgW"><a href="https://quip.com/wJpbAvzE0UFQ">Strong lensing matrix</a></control>，和白皮书暗能量，暗物质，星系形成，时变源等章节。<br/>
+
+<br/>
+
+<br/>
+
+<h3 id='FAWACACTiVT'>科学流程图：</h3>
+
+<div data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/FAWAAAq5YKr/vzn1vS4H9LO09TqKZ757UA?a=jd2X0a0Yd5f0Sm7Vh5oeSpLxjH4qpgC9seEAFAAYPBAa' id='FAWACAbUaT7' alt='' width='800' height='514'></img></div><br/>
+
+<h3 id='FAWACAQwoUA'>任务列表：</h3>
+
+星系-星系强引力透镜系统：<br/>
+
+<br/>
+
+<div class="" style="" data-section-style='5'><ul id='FAWACAc0JXr'><li id='FAWACA4z3dc' class='parent' value='1'>星系级透镜模拟星表构建
+
+<br/></li><ul><li id='FAWACAsiDW7' class=''>项目描述：Lens采用Illustris-TNG, source采用analytical source和real galaxy两种，制作20000个贴近真实观测的Mock lens,供search测试和modeling测试使用。Lens galaxy和source galaxy应该尽量覆盖星系参数空间。
+
+<br/></li><li id='FAWACAgREAv' class=''>人员：李然，李楠，陈云，杜玮
+
+<br/></li><li id='FAWACAYO0bh' class=''>项目状态: Analytical lens 已经制作1000个， Illustris-TNG lens已经完成mass map.
+
+<br/></li></ul><li id='FAWACAu3mCC' class='parent'>星系团强透镜模拟星表构建人员：
+
+<br/></li><ul><li id='FAWACAOMw7x' class=''>人员：李楠，刘德子
+
+<br/></li></ul><li id='FAWACAsJnBQ' class='parent'>星系级别透镜搜索
+
+<br/></li><ul><li id='FAWACAwbKwA' class=''>人员：李楠，王春香，尓欣中
+
+<br/></li></ul><li id='FAWACAi6Y6l' class='parent'>星系透镜测光红移测量
+
+<br/></li><ul><li id='FAWACAPd2G7' class=''>人员：陈云，李然
+
+<br/></li></ul><li id='FAWACA9YMqJ' class='parent'>利用星系透镜进行宇宙学限制
+
+<br/></li><ul><li id='FAWACAcSybV' class='parent'>子任务1： 
+
+<br/></li><ul><li id='FAWACAASRrM' class=''> 任务描述：结合透镜星系的动力学质量和引力质量来测量宇宙学参数
+
+<br/></li><li id='FAWACAit6jh' class=''> 人员:陈云、李然、曹潇月、舒轶平
+
+<br/></li></ul><li id='FAWACAGPGQ2' class='parent'>子任务2：
+
+<br/></li><ul><li id='FAWACAQh5RE' class=''>任务描述：利用透镜星系红移分布、最大角分离的分布来测量宇宙学参数
+
+<br/></li><li id='FAWACAqmVsa' class=''>人员：曹硕、祁景钊
+
+<br/></li></ul><li id='FAWACAIrFhD' class='parent'>子任务3：
+
+<br/></li><ul><li id='FAWACANhZDU' class=''>任务描述：利用瞬变源（超新星、千新星、引力波源）多像的时间延迟来测量哈勃常数
+
+<br/></li><li id='FAWACAl5JcC' class=''>人员：廖恺、丁旭恒、范锡龙
+
+<br/></li></ul></ul></ul></div><div class="" style="" data-section-style='5'><ul id='FAWACA1tfT4'><li id='FAWACAUO6mp' class='parent' value='1'>星系级别强引力透镜建模 
+
+<br/></li><ul><li id='FAWACA4Gc1N' class=''>输入数据: 多波段L1科学图像，测光红移
+
+<br/></li><li id='FAWACA7ifPS' class='parent'>子任务1：快速构建透镜质量模型 
+
+<br/></li><ul><li id='FAWACA8tK4k' class=''>任务描述：从L1科学图像多波段图像出发，建立Lens mass model, 重建Source galaxy brightness. 计划建立两套pipeline，分别利用parametric model和 pixellized model建立模型。
+
+<br/></li><li id='FAWACA9gDVt' class=''>人员：李然，曹潇月，舒轶平
+
+<br/></li><li id='FAWACA5KRbY' class=''>状态：正在利用pipeline对哈勃数据和模拟数据进行分析。
+
+<br/></li></ul><li id='FAWACA338Hh' class='parent'>子任务2：利用透镜进行子暗晕搜索，测量子暗晕质量函数，限制暗物质性质
+
+<br/></li><ul><li id='FAWACAvGkM2' class=''>任务描述：对高性噪比Lens, 进行精确建模，建立sensitivity map,测量子暗晕质量函数，限制暗物质性质
+
+<br/></li><li id='FAWACABpqrU' class=''>人员：李然，曹潇月
+
+<br/></li><li id='FAWACArNigd' class=''>状态：正在利用模拟数据测试sensitivity map
+
+<br/></li></ul><li id='FAWACADpB6g' class='parent'>子任务3：利用星系级别透镜进行子暗晕功率谱测量
+
+<br/></li><ul><li id='FAWACA42woo' class=''>人员：何秋翰，李然
+
+<br/></li></ul><li id='FAWACAHObcv' class='parent'>子任务4：利用星系透镜研究星系演化
+
+<br/></li><ul><li id='FAWACAhdOLe' class=''>人员：李然
+
+<br/></li></ul></ul><li id='FAWACAU8k0s' class='parent'>星系团多像系统证认
+
+<br/></li><ul><li id='FAWACAcwSI7' class=''>人员：朱凯，陕欢源
+
+<br/></li></ul><li id='FAWACAn6RuR' class='parent'>星系团透镜测光红移测量
+
+<br/></li><ul><li id='FAWACAOWHFg' class=''>人员：李然，陈云，陕欢源
+
+<br/></li></ul><li id='FAWACANzqOL' class='parent'>星系团级别强透镜建模
+
+<br/></li><ul><li id='FAWACA2C6JN' class='parent'>普通星系团建模
+
+<br/></li><ul><li id='FAWACA5F72S' class=''>人员：谢雨珊，陕欢源，李然，王春香，尔欣中
+
+<br/></li></ul><li id='FAWACAh39R5' class='parent'>合并星系团建模
+
+<br/></li><ul><li id='FAWACA49FEO' class=''>人员：陕欢源，李然,尔欣中
+
+<br/></li></ul><li id='FAWACAj0zAV' class='parent'>星系团中心密度轮廓（结合动力学）
+
+<br/></li><ul><li id='FAWACAGRCF5' class=''>人员：李然，朱凯，何秋翰，陕欢源，谢雨珊，王春香
+
+<br/></li></ul></ul><li id='FAWACAqdhVm' class='parent'>星系团Giant arc/arclet证认
+
+<br/></li><ul><ul><li id='FAWACAQ73ow' class=''>人员：谢雨杉
+
+<br/></li></ul></ul><li id='FAWACA0cUFO' class='parent'>利用星系团透镜搜索高红移星系
+
+<br/></li><ul><ul><li id='FAWACAirVhp' class=''>人员：李然，陕欢源，XXXX
+
+<br/></li></ul></ul><li id='FAWACAMl6V4' class='parent'>利用星系团透镜的宇宙学限制
+
+<br/></li><ul><ul><li id='FAWACAri2lM' class=''>人员：陕欢源，陈云，李然
+
+<br/></li></ul></ul></ul></div></body></html>
+	<div class="container">
+		<button class="button"
+			style="vertical-align:middle;width:262px;position:relative;">
+			<span><a style="color:white;text-decoration:none;" href="../index.html">Goto Homepage</a></span>
+		</button>
+	</div>
+</body>
